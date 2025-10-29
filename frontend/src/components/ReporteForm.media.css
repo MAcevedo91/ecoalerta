@@ -3,6 +3,7 @@
 @media (max-width: 1400px) {
   .container {
     width: 70%;
+    justify-self: center;
   }
   
   body {
@@ -24,26 +25,56 @@
   .form-section {
     flex-direction: column;
     padding: 15px;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
   }
 
   .header {
     text-align: center;
     flex-direction: column;
+    flex-shrink: 0;
   }
 
   .container {
     width: 95%;
-    min-height: 95vh;
+    height: 100vh;
     border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   body {
     padding: 10px;
     justify-content: center;
+    overflow: hidden;
   }
 
   .map-container {
-    min-height: 300px;
+    height: 400px !important;
+    min-height: 400px !important;
+    position: relative;
+    width: 100%;
+    flex: none;
+    margin-bottom: 20px;
+  }
+
+  /* Asegurar que el contenedor interno del mapa tenga altura */
+  .map-container > div {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .form-container {
+    min-width: unset;
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
   }
 
   .modal-content {
@@ -54,6 +85,7 @@
 @media (max-width: 480px) {
   .container {
     width: 98%;
+    height: 100vh;
   }
   
   .form-container {
@@ -66,5 +98,16 @@
   
   .btn {
     padding: 12px 20px;
+  }
+
+  .map-container {
+    height: 350px !important;
+    min-height: 350px !important;
+  }
+
+  /* Ajuste específico para pantallas muy pequeñas */
+  .form-section {
+    height: calc(100vh - 80px);
+    padding: 10px;
   }
 }

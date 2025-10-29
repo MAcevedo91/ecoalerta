@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Login.css'
+import logo from '../assets/images/logo-green.png'
 
 function Login() {
   const [usuario, setUsuario] = useState('')
@@ -22,7 +23,7 @@ function Login() {
     <div className="login-container">
       <div className="login-box">
         <div className="login-header">
-          <h1>🌱 EcoAlerta</h1>
+          <img src= {logo} alt="green-logo" />
           <p>Sistema de Monitoreo de Vertederos</p>
         </div>
         

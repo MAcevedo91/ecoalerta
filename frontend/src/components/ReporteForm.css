@@ -9,27 +9,17 @@ body {
   height: 100vh; /* fill viewport exactly */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 40px; /* keep horizontal padding for breathing room */
   position: relative;
   box-sizing: border-box;
   overflow: hidden; /* prevent page-level vertical scroll */
 }
 
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 0;
-}
 
 .container {
-  width: 95%;
-  max-width: 1400px;
+  width: 150%;
+  max-width: 1900px;
   min-height: 60vh;
   max-height: calc(100vh - 80px); /* avoid exceeding viewport (body padding 40px top+bottom) */
   background: white;
@@ -40,7 +30,6 @@ body::before {
   display: flex;
   flex-direction: column;
   overflow: hidden; /* hide overflow at container level; internal areas scroll */
-  margin: 20px auto;
   box-sizing: border-box;
 }
 
@@ -106,6 +95,17 @@ body::before {
   gap: 15px;
   min-height: 420px; /* tamaño mínimo en escritorio */
   box-sizing: border-box;
+  position: relative; /* Asegurar que el mapa se renderice correctamente */
+  width: 100%;
+  height: 100%; /* Asegurar que el contenedor tiene altura */
+}
+
+/* Asegurar que el div del mapa tenga altura */
+.map-container > div {
+  flex: 1;
+  min-height: 300px;
+  width: 100%;
+  height: 100%;
 }
 
 .map-container input[type="text"] {

@@ -1,5 +1,5 @@
-# Usar models estándar para SQLite (sin PostGIS)
-from django.db import models
+# Models con PostGIS para Azure PostgreSQL
+from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractUser
 import secrets
 import string
@@ -74,10 +74,8 @@ class Reporte(models.Model):
         null=True
     )
     
-    # Ubicación geográfica
-    # Para SQLite usar campos separados:
-    lat = models.FloatField(null=True, blank=True)  # Latitud
-    lng = models.FloatField(null=True, blank=True)  # Longitud
+    # Ubicación geográfica (PostGIS)
+    ubicacion = models.PointField(srid=4326, null=True, blank=True)  # WGS84
     direccion = models.CharField(max_length=255, blank=True)
     
     # Estado y seguimiento

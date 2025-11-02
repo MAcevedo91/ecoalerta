@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.gis',  # PostGIS support - deshabilitado para SQLite
+    'django.contrib.gis',  # PostGIS support - habilitado para Azure PostgreSQL
     'rest_framework',
     'corsheaders',  # CORS support
     'reportes',
@@ -75,11 +75,18 @@ WSGI_APPLICATION = 'ecoalerta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# Usar SQLite para desarrollo
+# Azure PostgreSQL con PostGIS
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': os.getenv('DB_NAME', 'postgres'),
+        'USER': os.getenv('DB_USER', 'administrador'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'Ecoalerta1'),
+        'HOST': os.getenv('DB_HOST', 'ecoalerta.postgres.database.azure.com'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': 'require',  # Azure requiere SSL
+        },
     }
 }
 
@@ -148,4 +155,10 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Custom user model
 AUTH_USER_MODEL = 'reportes.Usuario'
+
+# GDAL Configuration for PostGIS (macOS)
+import platform
+if platform.system() == 'Darwin':  # macOS
+    GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH', '/opt/homebrew/lib/libgdal.dylib')
+    GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH', '/opt/homebrew/lib/libgeos_c.dylib')
 

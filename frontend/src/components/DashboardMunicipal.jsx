@@ -178,38 +178,59 @@ function DashboardMunicipal() {
           {/* Vista Mapa */}
           {vistaActual === 'mapa' && (
             <div className="map-view">
-              <MapContainer
-                center={[-29.9533, -71.3395]}
-                zoom={12}
-                style={{ height: '100%', width: '100%' }}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; OpenStreetMap contributors'
-                />
-                {reportes.map(reporte => (
-                  <Marker key={reporte.id || reporte.codigo_seguimiento} position={[reporte.lat, reporte.lng]}>
-                    <Popup>
-                      <b>{reporte.codigo_seguimiento}</b><br/>
-                      {reporte.categoria_nombre}<br/>
-                      <button 
-                        onClick={() => handleVerDetalle(reporte)}
-                        style={{
-                          marginTop: '5px',
-                          padding: '5px 10px',
-                          background: '#228B22',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '4px',
-                          cursor: 'pointer'
-                        }}
-                      >
-                        Ver Detalle
-                      </button>
-                    </Popup>
-                  </Marker>
-                ))}
-              </MapContainer>
+              {loading ? (
+                <div style={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                  height: '100%',
+                  fontSize: '16px',
+                  color: '#666'
+                }}>
+                  Cargando mapa...
+                </div>
+              ) : (
+                <MapContainer
+                  center={[-29.9533, -71.3395]}
+                  zoom={12}
+                  style={{ height: '100%', width: '100%', minHeight: '500px' }}
+                >
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; OpenStreetMap contributors'
+                  />
+                  {reportes
+                    .filter(reporte => reporte.lat && reporte.lng)
+                    .map(reporte => (
+                    <Marker 
+                      key={reporte.id || reporte.codigo_seguimiento} 
+                      position={[reporte.lat, reporte.lng]}
+                    >
+                      <Popup>
+                        <div>
+                          <b>{reporte.codigo_seguimiento}</b><br/>
+                          {reporte.categoria_nombre}<br/>
+                          <small>{reporte.direccion || 'Sin dirección'}</small><br/>
+                          <button 
+                            onClick={() => handleVerDetalle(reporte)}
+                            style={{
+                              marginTop: '5px',
+                              padding: '5px 10px',
+                              background: '#228B22',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '4px',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            Ver Detalle
+                          </button>
+                        </div>
+                      </Popup>
+                    </Marker>
+                  ))}
+                </MapContainer>
+              )}
             </div>
           )}
 

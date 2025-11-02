@@ -1,20 +1,41 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { API_ENDPOINTS } from '../config'
 import './Login.css'
 
 function Login() {
   const [usuario, setUsuario] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
+    setLoading(true)
     
-    // Validación simple (después conectarás con backend)
-    if (usuario === 'inspector' && password === '1234') {
-      navigate('/dashboard')
-    } else {
-      alert('Credenciales incorrectas')
+    try {
+      const response = await fetch(API_ENDPOINTS.LOGIN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: usuario, password: password }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        // Guardar datos del usuario en localStorage
+        localStorage.setItem('user', JSON.stringify(data.user))
+        navigate('/dashboard')
+      } else {
+        alert(data.error || 'Credenciales incorrectas')
+      }
+    } catch (error) {
+      console.error('Error al conectar con el servidor:', error)
+      alert('Error al conectar con el servidor. Verifica que el backend esté corriendo.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -49,7 +70,9 @@ function Login() {
             />
           </div>
 
-          <button type="submit" className="btn-login">Iniciar Sesión</button>
+          <button type="submit" className="btn-login" disabled={loading}>
+            {loading ? 'Conectando...' : 'Iniciar Sesión'}
+          </button>
         </form>
 
         <div className="login-footer">

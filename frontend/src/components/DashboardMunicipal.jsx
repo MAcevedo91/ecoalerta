@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import './DashboardMunicipal.css'
+import Estadisticas from './Estadisticas.jsx'
 
 // Fix iconos Leaflet
 import L from 'leaflet'
@@ -89,7 +90,10 @@ function DashboardMunicipal() {
           >
             📋 Vista de Tabla
           </div>
-          <div className="nav-item">
+          <div 
+            className={`nav-item ${vistaActual === 'estadisticas' ? 'active' : ''}`}
+            onClick={() => setVistaActual('estadisticas')}
+          >
             📊 Estadísticas
           </div>
           <div className="nav-item">
@@ -218,10 +222,13 @@ function DashboardMunicipal() {
                       </td>
                     </tr>
                   ))}
+                  {/* Vista Estadísticas */}
+                  {vistaActual === 'estadisticas' && <Estadisticas />}
                 </tbody>
               </table>
             </div>
           )}
+          
         </div>
       </div>
 

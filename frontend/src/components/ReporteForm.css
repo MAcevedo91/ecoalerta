@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -6,14 +7,17 @@ html, body {
 body {
   background: url('../assets/images/background-img.png') no-repeat center center fixed;
   background-size: cover;
-  height: 100vh; /* fill viewport exactly */
+  height: 100vh;
+  /* fill viewport exactly */
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 40px; /* keep horizontal padding for breathing room */
+  padding: 40px;
+  /* keep horizontal padding for breathing room */
   position: relative;
   box-sizing: border-box;
-  overflow: hidden; /* prevent page-level vertical scroll */
+  overflow: hidden;
+  /* prevent page-level vertical scroll */
 }
 
 
@@ -21,15 +25,17 @@ body {
   width: 150%;
   max-width: 1900px;
   min-height: 60vh;
-  max-height: calc(100vh - 80px); /* avoid exceeding viewport (body padding 40px top+bottom) */
+  max-height: calc(100vh - 80px);
+  /* avoid exceeding viewport (body padding 40px top+bottom) */
   background: white;
   border-radius: 20px;
   position: relative;
   z-index: 1;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* hide overflow at container level; internal areas scroll */
+  overflow: hidden;
+  /* hide overflow at container level; internal areas scroll */
   box-sizing: border-box;
 }
 
@@ -55,11 +61,29 @@ body {
   margin: 5px 0;
 }
 
+.header img {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .back-button {
   padding: 8px 16px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   color: white;
-  border: 1px solid rgba(255,255,255,0.6);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
@@ -75,8 +99,8 @@ body {
 }
 
 .back-button:hover {
-  background: rgba(255,255,255,0.25);
-  border-color: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.8);
   transform: translateY(-50%) translateX(-2px);
 }
 
@@ -89,19 +113,23 @@ body {
 }
 
 .map-container {
-  flex: 1.4; /* darle más espacio al mapa */
+  flex: 1.4;
+  /* darle más espacio al mapa */
   display: flex;
   flex-direction: column;
   gap: 15px;
-  min-height: 420px; /* tamaño mínimo en escritorio */
+  min-height: 420px;
+  /* tamaño mínimo en escritorio */
   box-sizing: border-box;
-  position: relative; /* Asegurar que el mapa se renderice correctamente */
+  position: relative;
+  /* Asegurar que el mapa se renderice correctamente */
   width: 100%;
-  height: 100%; /* Asegurar que el contenedor tiene altura */
+  height: 100%;
+  /* Asegurar que el contenedor tiene altura */
 }
 
 /* Asegurar que el div del mapa tenga altura */
-.map-container > div {
+.map-container>div {
   flex: 1;
   min-height: 300px;
   width: 100%;
@@ -118,7 +146,8 @@ body {
 }
 
 .form-container {
-  flex: 0.9; /* reducir ligeramente el espacio del formulario */
+  flex: 0.9;
+  /* reducir ligeramente el espacio del formulario */
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -300,30 +329,82 @@ textarea {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+  body {
+    height: auto;
+    /* Allow body to grow */
+    min-height: 100vh;
+    overflow-y: auto;
+    /* Enable vertical scroll on body */
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+
   .container {
-    width: 98%;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
     min-height: auto;
-    border-radius: 12px;
+    max-height: none;
+    /* Remove max-height constraint */
+    overflow: visible;
+    /* Allow content to determine height */
+    margin-top: 20px;
   }
 
   .form-section {
     flex-direction: column;
-    padding: 16px;
-    gap: 18px;
+    padding: 20px;
+    gap: 20px;
+    overflow: visible;
   }
 
   .map-container {
-    min-height: 260px;
+    flex: none;
+    width: 100%;
+    height: 300px;
+    /* Fixed height for map */
+    min-height: 300px;
+  }
+
+  .form-container {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+    padding-right: 0;
   }
 
   .header {
-    padding: 20px;
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
   }
 
   .back-button {
-    right: 20px;
-    padding: 6px 12px;
-    font-size: 13px;
+    position: static;
+    transform: none;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .back-button:hover {
+    transform: none;
+  }
+
+  .file-input-label {
+    padding: 20px;
   }
 }

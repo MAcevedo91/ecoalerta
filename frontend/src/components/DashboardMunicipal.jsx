@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import './DashboardMunicipal.css'
 import { API_ENDPOINTS } from '../config'
+import logo from '../assets/images/Ecoalerta-logo-min.png'
 
 // Fix iconos Leaflet
 import L from 'leaflet'
@@ -380,7 +381,7 @@ function DashboardMunicipal() {
     <div className="dashboard">
       {/* Header */}
       <div className="dashboard-header">
-        <h1>🌱 EcoAlerta - Dashboard Municipal</h1>
+        <img src={logo} alt="logo-ecoalerta" />
         <div className="user-info">
           <span>👤 Inspector Municipal</span>
           <button className="logout-btn" onClick={() => window.location.href = '/login'}>
